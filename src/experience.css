@@ -1,0 +1,79 @@
+/* Every spread fills the viewport. The React reader only recycles offscreen
+   neighbours; its continuous coordinate never rewinds at the last chapter. */
+:root{--canvas:#fafaf9;--spread-width:100vw;--spread-height:100svh;--spread-gap:0px}
+html,body,#root{width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:#101719}
+#root{position:relative;isolation:isolate}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+.reader{position:fixed;inset:0;overflow:hidden;touch-action:none;outline:none;background:#fafaf9;cursor:grab}
+.reader.is-dragging{cursor:grabbing;user-select:none}
+.reader-slide.spread{position:absolute;inset:0 auto auto 0;width:100%;height:100%;margin:0;box-shadow:none;gap:0;will-change:transform}
+.reader-slide.spread::after{display:none}
+.reader-slide.spread.cover{height:100%;gap:0}
+.reader-slide.spread.cover .page{width:50%;height:100%;box-shadow:none}
+.reader-slide .page{flex:0 0 50%;height:100%}
+.reader-slide .page::after{width:1.2%}
+.reader-slide .page:first-child::after{width:1.5%}
+.cover-masthead{top:6.2%}
+.cover-masthead h1{font-size:17.3cqw}
+.back-cover{padding:5.8cqw 3.3cqw 3.9cqw}
+.back-portrait{height:89%}
+.back-caption{height:11%;padding-top:2%}
+.running-head{top:50px;font-size:1.7cqw}
+.profile-small{top:8%}
+.model-stats{top:7%;z-index:2}
+.about-page{padding-top:7.7cqw;padding-bottom:5cqw}
+.about-sections{height:88%}
+.contents-page{padding-top:7.6cqw;padding-bottom:6.5cqw}
+.contents-page>h2{margin-bottom:3.5%}
+.contents-photo{height:57%}
+.contents-grid{height:30%;padding-top:4%}
+.vertical-photo-page,.four-grid-page,.commercial-page,.beach-two-page,.formal-page,.desert-page{padding-top:max(65px,6cqw);padding-bottom:6cqw}
+.editorial-caption{bottom:7%;font-size:10px;letter-spacing:2px}
+.experience-header,.experience-footer,.chapter-indicator{position:fixed;z-index:10;color:white;mix-blend-mode:difference}
+.experience-header{top:0;left:0;right:0;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.experience-header>*{pointer-events:auto}
+.brand-mark{display:flex;align-items:center;gap:13px;padding:0;border:0;background:transparent;color:inherit;font:24px/1 var(--display)}
+.brand-mark>span{font:8px/1.2 Arial,sans-serif;letter-spacing:1.7px}
+.experience-menu{display:flex;align-items:center;gap:27px}
+.experience-menu button{color:inherit;padding:6px 0;background:transparent;border:0;font:10px/1 Arial,sans-serif;letter-spacing:.35px}
+.film-button{display:flex;align-items:center;gap:6px}
+.play-symbol{font-size:16px;line-height:10px}
+.experience-menu .contents-button{gap:13px}
+.menu-mark{width:16px;gap:4px}
+.experience-footer{bottom:10px;left:22px;right:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;pointer-events:none}
+.experience-footer>*{pointer-events:auto}
+.experience-footer .chapter-status{flex-direction:row;align-items:center;gap:12px;min-width:0}
+.chapter-folio{font:10px/1 Arial,sans-serif;font-variant-numeric:tabular-nums}
+.chapter-label{font:italic 15px/1 var(--display)}
+.reading-hint{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;font:9px/1 Arial,sans-serif;letter-spacing:.35px}
+.reading-hint span{font-size:16px}
+.reader-navigation{display:flex;align-items:center;gap:20px}
+.reader-navigation button{padding:6px 2px;background:transparent;border:0;color:inherit;font:20px/1 Arial,sans-serif;min-width:24px}
+.infinity-mark{font:22px/1 var(--display)}
+.chapter-indicator{left:50%;bottom:7px;transform:translateX(-50%);display:flex;gap:5px}
+.chapter-indicator button{width:12px;height:3px;padding:0;border:0;background:#fff5;transition:background .25s,width .25s}
+.chapter-indicator button.selected{width:23px;background:#fff}
+.reading-hint{bottom:18px}
+.is-current .cover-masthead,.is-current .cover-name,.is-current .about-page>h2,.is-current .contents-page>h2,.is-current .vertical-title,.is-current .grid-story h2,.is-current .commercial-title h2,.is-current .formal-story h2,.is-current .desert-intro h2{animation:title-arrival 1s cubic-bezier(.2,.65,.25,1) both}
+@keyframes title-arrival{from{opacity:0;clip-path:inset(0 0 100% 0);filter:blur(5px)}to{opacity:1;clip-path:inset(0);filter:blur(0)}}
+.intro-film{position:fixed;inset:0;z-index:60;background:#0e1417;color:#f4f0e9;overflow:hidden;opacity:1;transition:opacity .55s cubic-bezier(.22,.6,.3,1),transform .8s cubic-bezier(.22,.6,.3,1)}
+.intro-film.is-leaving{opacity:0;transform:scale(1.025);pointer-events:none}
+.intro-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.intro-portrait{background:#0f171b}
+.intro-portrait .intro-video{object-fit:contain;object-position:center}
+.intro-topline,.intro-bottomline{position:absolute;left:30px;right:30px;display:flex;align-items:center;justify-content:space-between;font:9px/1.2 Arial,sans-serif;letter-spacing:1.8px}
+.intro-topline{top:24px}
+.intro-bottomline{bottom:25px}
+.intro-bottomline button{border:0;background:transparent;padding:10px 0;color:inherit;font:10px/1.2 Arial,sans-serif;letter-spacing:.25px}
+.sound-button,.intro-skip{display:flex;align-items:center;gap:14px}
+.sound-button span{font-size:17px}
+.intro-skip span{font-size:18px}
+.intro-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:#ffffff15}
+.intro-progress i{display:block;width:100%;height:100%;background:#e7dcc9;transform-origin:left;transition:transform .3s linear}
+.intro-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px solid #fff8;background:#10171980;backdrop-filter:blur(10px);color:white;font:40px/1 var(--display);padding:20px 35px}
+.intro-play span{display:block;font:11px/1.2 Arial,sans-serif;margin-top:10px}
+@media(min-width:1700px){.experience-header{padding:20px 30px}.experience-footer{left:30px;right:30px;bottom:15px}.brand-mark>span{font-size:10px}.experience-menu button{font-size:12px}.chapter-label{font-size:18px}.chapter-folio,.reading-hint{font-size:11px}.running-head{font-size:1.5cqw}}
+@media(max-width:700px){.experience-header{padding:12px 14px}.brand-mark{font-size:23px}.brand-mark>span{display:none}.experience-menu{gap:20px}.experience-menu button{font-size:9px}.experience-footer{left:14px;right:14px;bottom:12px;gap:10px}.experience-footer .chapter-status{gap:7px}.chapter-label{font-size:12px;max-width:145px}.reader-navigation{gap:13px}.reader-navigation button{padding:10px 0;font-size:19px}.reading-hint{display:none}.chapter-indicator{bottom:6px;gap:3px}.chapter-indicator button{width:8px;height:2px}.chapter-indicator button.selected{width:14px}.cover-masthead{top:9%}.cover-story{top:34%;font-size:clamp(11px,4.05cqw,25px)}.cover-story em{font-size:clamp(8px,2.95cqw,19px)}.cover-name{left:3%;right:3%;bottom:22%}.cover-name>em{font-size:8px}.cover-name h2{font-size:14cqw}.cover-signoff{font-size:clamp(10px,4.1cqw,22px);bottom:9%}.cover-signoff em{font-size:8px}.back-cover{padding-top:24cqw;padding-bottom:25cqw}.back-caption h2{font-size:10px}.back-caption .text-link{font-size:8px}.back-caption span{font-size:7px}.back-caption{gap:4%}.back-caption .monogram{width:20%;font-size:6cqw}.running-head{top:7%;font-size:7px}.profile-small{top:12%;height:37%;width:67%;left:-6%}.model-stats{top:15%;right:3%;font-size:7px}.profile-large{left:5%;width:125%;height:88%;bottom:-17%}.profile-name{left:9%;bottom:12%}.profile-name h2{font-size:11cqw}.profile-name p{font-size:7px}.about-page{padding:25cqw 4cqw 25cqw}.about-page>h2{font-size:10cqw}.about-sections h3{font-size:12px;margin-bottom:6%}.about-sections p{font-size:8px;line-height:1.4}.contents-page{padding-top:25cqw;padding-bottom:26cqw}.contents-page>h2{font-size:10cqw;margin-bottom:10%}.contents-photo{height:36%}.contents-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6% 8%;height:53%;padding-top:10%}.chapter-number{font-size:11cqw}.contents-grid h3{font-size:7px;white-space:normal;line-height:1.25}.contents-grid p{font-size:7px;line-height:1.3}.vertical-photo-page,.four-grid-page,.commercial-page,.beach-two-page,.formal-page,.desert-page{padding-top:25cqw;padding-bottom:25cqw}.vertical-title{font-size:10cqw;right:4%;top:30%}.title-top{top:15%}.title-left{left:4%;right:auto}.grid-story h2,.beach-one-grid .grid-story h2{font-size:7cqw}.grid-story p,.beach-one-grid .grid-story p{font-size:7px;line-height:1.3;text-align:left}.commercial-title h2{font-size:6.5cqw}.commercial-title p,.commercial-copy p{font-size:7px;line-height:1.3;text-align:left}.commercial-grid{grid-template-rows:32% 31% 33%}.formal-story h2,.desert-intro h2,.beach-two-intro h2{font-size:6.4cqw}.formal-story p,.desert-intro p,.desert-copy,.beach-two-intro p,.beach-two-copy{font-size:7px!important;line-height:1.3!important;text-align:left}.intro-topline,.intro-bottomline{left:18px;right:18px}.intro-topline{top:20px;font-size:7px;letter-spacing:1px}.intro-topline>span:last-child{max-width:100px;text-align:right}.intro-bottomline{bottom:20px}.intro-caption{display:none}.intro-bottomline button{font-size:10px}.intro-skip,.sound-button{gap:8px}.editorial-caption{bottom:9%;font-size:7px;letter-spacing:.6px}}
+@media(prefers-reduced-motion:reduce){.is-current .cover-masthead,.is-current .cover-name,.is-current .about-page>h2,.is-current .contents-page>h2,.is-current .vertical-title,.is-current .grid-story h2,.is-current .commercial-title h2,.is-current .formal-story h2,.is-current .desert-intro h2{animation:none}.reader-slide.spread{will-change:auto}.intro-film{transition:none}.intro-progress i,.chapter-indicator button{transition:none}}
